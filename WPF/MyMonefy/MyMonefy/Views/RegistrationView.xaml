@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="MyMonefy.Views.RegistrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md ="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyMonefy.Views"
+             mc:Ignorable="d" 
+             d:Height="750" Width="400">
+    <Grid >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+
+        </Grid.RowDefinitions>
+
+
+
+
+
+          
+
+
+        <Border Grid.Row="0" Grid.RowSpan="5" Background="DarkCyan" CornerRadius="120"></Border>
+
+        <TextBox  x:Name="nameTextBox" Grid.Row="0" Text="{Binding Account.Name, UpdateSourceTrigger=PropertyChanged}"   FontSize="20" Margin="80,40,80,22" Background="White" Foreground="Black" >
+            <md:HintAssist.Hint>
+                <TextBlock>Enter Name...</TextBlock>
+            </md:HintAssist.Hint>
+        </TextBox>
+
+        <TextBox x:Name="surnameTextBox" Grid.Row="1" Text="{Binding  Account.Surname, UpdateSourceTrigger=PropertyChanged}"  FontSize="20" Background="White" Margin="80,40,80,22" >
+            <md:HintAssist.Hint>
+                <TextBlock>Enter Surname...</TextBlock>
+            </md:HintAssist.Hint>
+        </TextBox>
+
+        <TextBox x:Name="emailTextBox" Grid.Row="2" Text="{Binding  Account.Email, UpdateSourceTrigger=PropertyChanged}"  FontSize="20" Background="White"  Margin="80,40,80,22">
+            <md:HintAssist.Hint>
+                <TextBlock>Enter Email...</TextBlock>
+            </md:HintAssist.Hint>
+        </TextBox>
+
+        <TextBox x:Name="passwordTextBox" Grid.Row="3" Text="{Binding  Account.Password, UpdateSourceTrigger=PropertyChanged}"  FontSize="20" Background="White"  Margin="80,40,80,22">
+            <md:HintAssist.Hint>
+                <TextBlock>Enter Password...</TextBlock>
+            </md:HintAssist.Hint>
+           
+        </TextBox>
+
+        <TextBox x:Name="passwordconfirmTextBox" Grid.Row="4" Text="{Binding  Confirmpassword, UpdateSourceTrigger=PropertyChanged}"  FontSize="20" Background="White"  Margin="80,40,80,22">
+            <md:HintAssist.Hint>
+                <TextBlock>Enter Password...</TextBlock>
+            </md:HintAssist.Hint>
+
+        </TextBox>
+
+
+        <Border Grid.Row="5" Background="DarkCyan" CornerRadius="30" Margin="120,100,110,-50">
+
+            <Button x:Name="submitBtn" Content="Submit" Background="Transparent" BorderBrush="Transparent" Command="{Binding submitBtn }"></Button>
+
+
+        </Border>
+
+
+        <Button Grid.Row="5" Margin="0,0,315,-300" Background="DarkCyan" BorderBrush="DarkCyan" Command="{Binding gobackCommand}">Go Back</Button>
+        
+    </Grid>
+</UserControl>

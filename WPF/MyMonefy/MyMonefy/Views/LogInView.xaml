@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="MyMonefy.Views.LogInView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:md ="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyMonefy.Views"
+             mc:Ignorable="d" 
+            Height="750" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+
+        </Grid.RowDefinitions>
+
+        <Border Background="DarkCyan" Grid.Row="1" Margin="20,80,20,80" CornerRadius="140"></Border>
+
+
+        <TextBox Name="nameTextBox" Grid.Row="1" Margin="50,190,49,290" Background="White" FontSize="35" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}">
+            <md:HintAssist.Hint>
+                <TextBlock>Enter Name...</TextBlock>
+            </md:HintAssist.Hint>
+        </TextBox>
+        
+        <TextBox Name="PasswordTextBox" Grid.Row="1" Margin="50,270,49,210" Background="White" FontSize="35" Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}">
+            <md:HintAssist.Hint>
+                <TextBlock>Enter Password...</TextBlock>
+            </md:HintAssist.Hint>
+        </TextBox>
+
+        <Button  Name="loginBtn" Grid.Row="1" Background="White" BorderBrush="DarkCyan" Margin="70,200,60,0" Content="Log In" Command="{Binding loginCommand}" Foreground="Black"></Button>
+
+        <Button Grid.Row="2" Margin="0,0,315,0" Background="DarkCyan" BorderBrush="DarkCyan" Command="{Binding gobackCommand}">Go Back</Button>
+
+    </Grid>
+</UserControl>

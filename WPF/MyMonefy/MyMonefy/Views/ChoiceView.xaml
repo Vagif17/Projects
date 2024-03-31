@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="MyMonefy.Views.ChoiceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:md ="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyMonefy.Views"
+             mc:Ignorable="d" 
+            Height="750" Width="400">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2.9*"/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Foreground="DarkCyan" FontFamily="Century Gothic" HorizontalAlignment="Center" FontSize="40" Margin="0,100,0,0">MoneFy</TextBlock>
+
+
+
+        <Border Grid.Row ="1" Background="DarkCyan" Margin="90,60,220,270" CornerRadius="20">
+            <Button x:Name="registerBtn"  Grid.Row="1" Background="Transparent" BorderBrush="Transparent" Command="{Binding registrationBtn}"  >
+                <md:PackIcon Kind="Register" Foreground="Wheat"></md:PackIcon>
+                <Button.ToolTip>
+                    <StackPanel Background="Gray">
+                        <TextBlock Text="Registration"></TextBlock>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
+        </Border>
+
+        <Border Grid.Row ="1" Background="DarkCyan" Margin="220,60,90,270" CornerRadius="20">
+            <Button x:Name="loginBtn" Grid.Row="1" Background="Transparent" BorderBrush="Transparent" Command="{Binding loginBtn}"  >
+                <md:PackIcon Kind="Login" Foreground="Wheat"></md:PackIcon>
+                <Button.ToolTip>
+                    <StackPanel Background="Gray">
+                        <TextBlock Text="Log In" ></TextBlock>
+                    </StackPanel>
+                </Button.ToolTip>
+            </Button>
+        </Border>
+
+
+        <lvc:PieChart IsEnabled="False" Grid.Row="1" Margin="0,140,0,0" Name="Chart" BorderBrush="Gray" Content="{Binding Chart}"  Hoverable="True"  />
+
+
+    </Grid>
+</UserControl>

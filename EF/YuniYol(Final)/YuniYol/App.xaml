@@ -1,0 +1,75 @@
+﻿<Application x:Class="YuniYol.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Views="clr-namespace:YuniYol.Views"
+             xmlns:ViewModels="clr-namespace:YuniYol.ViewModel"
+             
+             xmlns:local="clr-namespace:YuniYol"
+             
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+
+            <DataTemplate DataType="{x:Type ViewModels:HomePageViewModel}">
+                <Views:HomePageView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:ChoiceViewModel}">
+                <Views:ChoiceView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:RegisterViewModel}">
+                <Views:RegisterView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:ModeratorViewModel}">
+                <Views:ModeratorView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:AdministratorsControlViewModel}">
+                <Views:AdministratorsControlView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:UsersControlViewModel}">
+                <Views:UsersControlView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:AdministratorViewModel}">
+                <Views:AdministratorView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:VerifyCodeViewModel}">
+                <Views:VerifyCodeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:ForgetPasswordOrUsernameViewModel}">
+                <Views:ForgetPasswordOrUsernameView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:ReturnAccountViewModel}">
+                <Views:ReturnAccountView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:ProductsControlViewModel}">
+                <Views:ProductsControlView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:StorageControlViewModel}">
+                <Views:StorageControlView/>
+            </DataTemplate>
+
+
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

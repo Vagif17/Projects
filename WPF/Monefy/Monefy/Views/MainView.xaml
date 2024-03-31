@@ -1,0 +1,56 @@
+﻿<Window x:Class="Monefy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Monefy"
+        xmlns:md ="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Title="MainWindow" Height="450" Width="800">
+
+
+
+    <Grid >
+
+        <Grid.RowDefinitions >
+
+            <RowDefinition  Height="0.1*"/>
+            <RowDefinition/>
+
+
+
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#FF7AC793" MouseDown="Grid_MouseDown" >
+
+            <Label Foreground="GhostWhite" FontSize="25" Content="Monefy" FontFamily="Century Gothic"/>
+
+            <StackPanel  HorizontalAlignment="Right" Margin="2" Orientation="Horizontal" Background="#FF7AC793" >
+
+                <Button x:Name="minimizeBtn" BorderBrush="#FF7AC793" Background="#FF7AC793" Foreground="WhiteSmoke" Click="minimizeBtn_Click" >
+                    <md:PackIcon Kind="Minimize"/>
+                </Button>
+
+                <Button x:Name="maximizeBtn" BorderBrush="#FF7AC793" Background="#FF7AC793" Foreground="WhiteSmoke" Click="maximizeBtn_Click">
+                    <md:PackIcon Kind="Maximize"/>
+                </Button>
+
+                <Button x:Name="closeBtn" BorderBrush="#FF7AC793" Background="#FF7AC793" Foreground="WhiteSmoke" Click="closeBtn_Click" >
+                    <md:PackIcon Kind="Close"/>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+
+        <Grid x:Name="themenowGrid" Grid.Row="1" Background = "WhiteSmoke">
+            
+        <ContentControl Grid.Row="1"
+                        Content="{Binding CurrentView, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+    </Grid>
+
+</Window>

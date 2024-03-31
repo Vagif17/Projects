@@ -1,0 +1,32 @@
+﻿<Application x:Class="Monefy.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Monefy"
+             xmlns:views="clr-namespace:Monefy.Views"
+             xmlns:viewModels ="clr-namespace:Monefy.ViewModels"
+             StartupUri="Views/MainView.xaml">
+    
+    
+    <Application.Resources>
+        <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+
+            <DataTemplate DataType="{x:Type viewModels:BudgetEnterViewModel}">
+                <views:BudgetEnterView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:BudgetViewModel}">
+                <views:BudgetView/>
+            </DataTemplate>
+
+            
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>
+    </Application.Resources>
+</Application>
