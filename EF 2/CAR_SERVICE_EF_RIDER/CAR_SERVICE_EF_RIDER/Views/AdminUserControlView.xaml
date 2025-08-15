@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="CAR_SERVICE_EF_RIDER.Views.AdminUserControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md ="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CAR_SERVICE_EF_RIDER.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1000">
+    
+    <!-- Second color : #ADD8E6 -->
+    <!-- Main color : #0f111a -->
+    
+    <Grid Background="Transparent">
+        
+    
+        
+        <ListView Grid.Row="0" ItemsSource="{Binding Users }" Background="Black">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" Margin="5">
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Text="{Binding Id,     StringFormat='Id: {0}'}" Foreground="White" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock Text="{Binding Name,   StringFormat='Name: {0}'}" Foreground="White" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Email,  StringFormat='Email: {0}'}" Foreground="White"/>
+                        </StackPanel>
+                        <Button VerticalAlignment="Center" Foreground="White"   Background="Transparent" HorizontalAlignment="Right" Content="Delete"   Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
+                            <Button.Effect>
+                                <DropShadowEffect/>
+                            </Button.Effect>
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        
+    </Grid>
+</UserControl>

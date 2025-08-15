@@ -1,0 +1,65 @@
+﻿<Window x:Class="CAR_SERVICE_EF_RIDER.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CAR_SERVICE_EF_RIDER"
+        mc:Ignorable="d"
+        Title="ApexAuto" 
+        Height="800" Width="1200" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"
+        
+        ResizeMode="NoResize"
+        Icon="../Images/ApexAuto(Icon).ico" 
+        
+        >
+    
+    <!-- Second color : #ADD8E6 -->
+    <!-- Main color : #0f111a -->
+    
+    
+    <Grid  >
+        
+         <Border  >
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop x:Name="GradientStop1" Color="DarkCyan" Offset="0.0"/>
+                    <GradientStop x:Name="GradientStop2" Color="Blue" Offset="1"/>
+                    <GradientStop x:Name="GradientStop3" Color="#0f111a" Offset="0.5"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="Border.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <!-- Анимация цвета для первого градиентного стопа -->
+                            <ColorAnimation Storyboard.TargetName="GradientStop1"
+                                            Storyboard.TargetProperty="Color"
+                                            From="#0f111a" To="Blue"
+                                            Duration="0:0:2" AutoReverse="True" />
+
+                            <!-- Анимация цвета для второго градиентного стопа -->
+                            <ColorAnimation Storyboard.TargetName="GradientStop2"
+                                            Storyboard.TargetProperty="Color"
+                                            From="Blue" To="DarkCyan"
+                                            Duration="0:0:2" AutoReverse="True" />
+
+                            <!-- Анимация цвета для третьего градиентного стопа -->
+                            <ColorAnimation Storyboard.TargetName="GradientStop3"
+                                            Storyboard.TargetProperty="Color"
+                                            From="DarkCyan" To="#0f111a"
+                                            Duration="0:0:2" AutoReverse="True" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
+        </Border>
+        
+        
+        <UserControl Content="{Binding CurrentView,UpdateSourceTrigger=PropertyChanged}">
+            
+        </UserControl>
+    </Grid>
+</Window>

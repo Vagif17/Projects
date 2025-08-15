@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="CAR_SERVICE_EF_RIDER.Views.CreateAdView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md ="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CAR_SERVICE_EF_RIDER.Views"
+             xmlns:models="clr-namespace:CAR_SERVICE_EF_RIDER.Models"
+             xmlns:global="clr-namespace:"
+
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1200">
+    
+    <!-- Second color : #ADD8E6 -->
+    <!-- Main color : #0f111a -->
+    
+    
+    <Grid Background="#0f111a">
+        
+        <Grid >
+            
+            <Grid.RowDefinitions >
+                
+                <RowDefinition Height="5.9*"/>
+                <RowDefinition/>
+                
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+            
+                <Border Background="White" Margin="90,40,90,0" CornerRadius="90"></Border>
+                
+                <Button Content="Back" Command="{Binding BackCommand}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    
+                    <Button.Effect>
+                        
+                        <DropShadowEffect/>
+                        
+                    </Button.Effect>
+                    
+                </Button>
+                
+                <TextBox Background="Transparent" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,370,410" Width="130" Height="36">
+                    
+                    
+                    
+                    <md:HintAssist.Hint>
+                        
+                        <TextBlock>ℹ️Title</TextBlock>
+                        
+                    </md:HintAssist.Hint>
+                    
+                </TextBox>
+                
+                <TextBox Background="Transparent"  BorderBrush="Transparent" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="370,0,0,410" Width="60" Height="36">
+                    
+                    <TextBox.Text>
+                        <Binding Path="Price" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True" ValidatesOnExceptions="True">
+                            <Binding.ValidationRules>
+                                <models:IntegerValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    
+                    <md:HintAssist.Hint>
+                        
+                        <TextBlock>🏷️Price</TextBlock>
+                        
+                    </md:HintAssist.Hint>
+                    
+                </TextBox>
+                
+                <Image VerticalAlignment="Center" Source="{Binding SelectedImage}" Width="500" Height="800" Margin="0,0,0,0"></Image>
+                
+                <Button Background="Transparent" Command="{Binding UploadImageCommand,UpdateSourceTrigger=PropertyChanged}" Content="Upload Image"  VerticalAlignment="Bottom" Margin="0,0,0,110" Width="150" Height="40" FontSize="15">
+                    
+                    <Button.Effect>
+                        
+                        <DropShadowEffect/>
+                        
+                    </Button.Effect>
+                    
+                </Button>
+                
+                <TextBox  Background="Transparent" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Transparent" Style="{StaticResource MaterialDesignFloatingHintTextBox}"   VerticalAlignment="Bottom" Margin="0,0,0,60" Width="600" Height="36" FontSize="15" >
+                    
+                    <md:HintAssist.Hint>
+                        
+                        <TextBlock>📰Description</TextBlock>
+                        
+                    </md:HintAssist.Hint>
+                    
+                </TextBox>
+            </Grid>
+            
+            <Button Grid.Row="1" Background="White" BorderBrush="White" Width="500" Content="Create" Command="{Binding CreateAdCommand, UpdateSourceTrigger=PropertyChanged}">
+                
+                <Button.Effect>
+                    
+                    <DropShadowEffect/>
+                    
+                </Button.Effect>
+                
+            </Button>
+            
+        </Grid>
+        
+    </Grid>
+</UserControl>
