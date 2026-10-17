@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Удаление · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2>Удалить предложение?</h2>
+    <p class="sub">«{{ offer.title }}» будет удалено без возможности восстановления.</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-actions" style="margin-top:0">
+        <button class="btn btn-danger">Да, удалить</button>
+        <a class="btn btn-outline" href="{% url 'offers:detail' offer.pk %}">Отмена</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

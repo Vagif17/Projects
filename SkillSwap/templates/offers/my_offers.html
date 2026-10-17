@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}My Offers · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h2>My Offers</h2>
+    <p class="text-muted" style="margin:0">Ваши предложения во всех статусах</p>
+  </div>
+  <a class="btn btn-primary" href="{% url 'offers:create' %}">+ Новое предложение</a>
+</div>
+
+{% if offers %}
+  <div class="offer-grid">
+    {% for offer in offers %}
+      {% include "offers/_offer_card.html" with show_status=True show_actions=True %}
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty">
+    <h3>У вас пока нет предложений</h3>
+    <p>Создайте первое: расскажите, чему вы можете научить.</p>
+    <a class="btn btn-primary" href="{% url 'offers:create' %}">+ Создать предложение</a>
+  </div>
+{% endif %}
+{% endblock %}

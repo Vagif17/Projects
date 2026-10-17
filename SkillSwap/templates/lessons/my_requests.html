@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}My Requests · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h2>My Requests</h2>
+    <p class="text-muted" style="margin:0">Запросы, которые вы отправили и получили</p>
+  </div>
+</div>
+
+<h3 class="section-title" style="margin-top:0">Полученные запросы</h3>
+{% for lesson in received %}
+  <div class="card mod-row">
+    <div style="flex:1; min-width:240px">
+      <h3 style="margin-bottom:.3rem">
+        <a href="{% url 'offers:detail' lesson.offer.pk %}">{{ lesson.offer.title }}</a>
+      </h3>
+      <div class="text-muted" style="font-size:.9rem">
+        От: <strong>{{ lesson.student.username }}</strong> · {{ lesson.created_at|date:"d.m.Y H:i" }}
+      </div>
+      {% if lesson.message %}<p class="req-message">«{{ lesson.message }}»</p>{% endif %}
+      {% if lesson.rating %}<div class="stars" style="margin-top:.4rem">★ {{ lesson.rating.score }}/5</div>{% endif %}
+    </div>
+
+    <div class="req-side">
+      <span class="badge badge-{{ lesson.status }}">{{ lesson.get_status_display }}</span>
+      <div class="form-actions" style="margin:0">
+        {% if lesson.status == 'pending' %}
+          <form method="post" action="{% url 'lessons:action' lesson.pk 'accept' %}" class="inline-form">
+            {% csrf_token %}<button class="btn btn-primary btn-sm">Принять</button>
+          </form>
+          <form method="post" action="{% url 'lessons:action' lesson.pk 'reject' %}" class="inline-form">
+            {% csrf_token %}<button class="btn btn-danger btn-sm">Отклонить</button>
+          </form>
+        {% elif lesson.status == 'accepted' %}
+          <form method="post" action="{% url 'lessons:action' lesson.pk 'complete' %}" class="inline-form">
+            {% csrf_token %}<button class="btn btn-primary btn-sm">Занятие проведено</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <div class="empty">Вам ещё никто не отправлял запросы.</div>
+{% endfor %}
+
+<h3 class="section-title">Отправленные запросы</h3>
+{% for lesson in sent %}
+  <div class="card mod-row">
+    <div style="flex:1; min-width:240px">
+      <h3 style="margin-bottom:.3rem">
+        <a href="{% url 'offers:detail' lesson.offer.pk %}">{{ lesson.offer.title }}</a>
+      </h3>
+      <div class="text-muted" style="font-size:.9rem">
+        Автор: <strong>{{ lesson.offer.author.username }}</strong> · {{ lesson.created_at|date:"d.m.Y H:i" }}
+      </div>
+      {% if lesson.message %}<p class="req-message">«{{ lesson.message }}»</p>{% endif %}
+      {% if lesson.rating %}<div class="stars" style="margin-top:.4rem">Ваша оценка: ★ {{ lesson.rating.score }}/5</div>{% endif %}
+    </div>
+
+    <div class="req-side">
+      <span class="badge badge-{{ lesson.status }}">{{ lesson.get_status_display }}</span>
+      <div class="form-actions" style="margin:0">
+        {% if lesson.status == 'pending' or lesson.status == 'accepted' %}
+          <form method="post" action="{% url 'lessons:action' lesson.pk 'cancel' %}" class="inline-form">
+            {% csrf_token %}<button class="btn btn-ghost btn-sm">Отменить</button>
+          </form>
+        {% elif lesson.status == 'completed' %}
+          <a class="btn btn-primary btn-sm" href="{% url 'lessons:rate' lesson.pk %}">
+            {% if lesson.rating %}Изменить отзыв{% else %}Оценить{% endif %}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <div class="empty">
+    Вы ещё не отправляли запросов.
+    <div style="margin-top:1rem"><a class="btn btn-primary" href="{% url 'offers:explore' %}">Найти занятие</a></div>
+  </div>
+{% endfor %}
+{% endblock %}

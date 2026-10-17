@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Редактирование профиля · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <h2>Редактирование профиля</h2>
+  <div class="author-box" style="margin:1rem 0 1.4rem">
+    {% include "accounts/_avatar.html" with person=user large=True %}
+    <div>
+      <div style="font-weight:700; font-size:1.2rem">{{ user.username }}</div>
+      <div class="text-muted">Имя пользователя изменить нельзя</div>
+    </div>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+      <button class="btn btn-primary">Сохранить</button>
+      <a class="btn btn-outline" href="{% url 'profile' user.username %}">Отмена</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

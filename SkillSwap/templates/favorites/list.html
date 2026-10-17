@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Favorites · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h2>Favorites</h2>
+    <p class="text-muted" style="margin:0">Предложения, которые вы добавили в избранное</p>
+  </div>
+</div>
+
+{% if offers %}
+  <div class="offer-grid">
+    {% for offer in offers %}
+      {% include "offers/_offer_card.html" %}
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty">
+    <h3>В избранном пока пусто</h3>
+    <p>Нажмите ♡ на карточке предложения, чтобы сохранить его здесь.</p>
+    <a class="btn btn-primary" href="{% url 'offers:explore' %}">Перейти в Explore</a>
+  </div>
+{% endif %}
+{% endblock %}

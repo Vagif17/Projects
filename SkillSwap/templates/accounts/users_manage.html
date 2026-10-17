@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Пользователи · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h2>Пользователи</h2>
+    <p class="text-muted" style="margin:0">Откройте профиль, чтобы заблокировать пользователя или изменить роль</p>
+  </div>
+</div>
+
+<form method="get" class="filters">
+  <div class="field grow">
+    <label for="u-q">Поиск по имени</label>
+    <input id="u-q" type="search" name="q" value="{{ q }}" placeholder="Имя пользователя">
+  </div>
+  <div class="filter-actions">
+    <button class="btn btn-primary">Найти</button>
+    <a class="btn btn-ghost" href="{% url 'users_manage' %}">Сбросить</a>
+  </div>
+</form>
+
+<p class="text-muted result-count">Найдено: {{ members|length }}</p>
+
+{% for m in members %}
+  <div class="card mod-row">
+    <div class="author-box">
+      {% include "accounts/_avatar.html" with person=m %}
+      <div>
+        <strong><a href="{% url 'profile' m.username %}">{{ m.username }}</a></strong>
+        <div class="text-muted" style="font-size:.85rem">
+          {{ m.email|default:"без email" }} · с {{ m.date_joined|date:"d.m.Y" }}
+        </div>
+      </div>
+    </div>
+    <div class="form-actions" style="margin:0">
+      <span class="badge badge-{{ m.role }}">{{ m.get_role_display }}</span>
+      {% if m.is_banned %}<span class="badge badge-banned">Заблокирован</span>{% endif %}
+      <a class="btn btn-ghost btn-sm" href="{% url 'profile' m.username %}">Открыть профиль</a>
+    </div>
+  </div>
+{% empty %}
+  <div class="empty">Никого не найдено.</div>
+{% endfor %}
+{% endblock %}

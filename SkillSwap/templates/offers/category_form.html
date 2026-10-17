@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2>{{ page_title }}</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-actions" style="margin-top:0">
+        <button class="btn btn-primary">Сохранить</button>
+        <a class="btn btn-outline" href="{% url 'offers:category_manage' %}">Отмена</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Нет доступа · SkillSwap{% endblock %}
+{% block content %}
+<div class="empty">
+  <h2>🚫 Нет доступа</h2>
+  <p>У вас нет прав для этого действия или ваш аккаунт заблокирован.</p>
+  <a class="btn btn-primary" href="{% url 'offers:explore' %}">На главную</a>
+</div>
+{% endblock %}

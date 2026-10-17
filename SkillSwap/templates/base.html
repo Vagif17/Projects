@@ -1,0 +1,92 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SkillSwap{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a class="brand" href="{% url 'offers:explore' %}">
+      <span class="brand-logo">⚡</span> SkillSwap
+    </a>
+
+    <nav class="nav-links">
+      <a href="{% url 'offers:explore' %}"
+         class="{% if request.resolver_match.url_name == 'explore' %}active{% endif %}">Explore</a>
+      <a href="{% url 'offers:popular' %}"
+         class="{% if request.resolver_match.url_name == 'popular' %}active{% endif %}">Popular</a>
+      <a href="{% url 'offers:categories' %}"
+         class="{% if request.resolver_match.url_name == 'categories' or request.resolver_match.url_name == 'category' %}active{% endif %}">Categories</a>
+      <a href="{% url 'mentors' %}"
+         class="{% if request.resolver_match.url_name == 'mentors' %}active{% endif %}">Mentors</a>
+    </nav>
+
+    <div class="nav-user">
+      {% if user.is_authenticated %}
+        <a class="btn btn-primary btn-sm" href="{% url 'offers:create' %}">+ Предложение</a>
+        <details class="dropdown">
+          <summary>
+            {% include "accounts/_avatar.html" with person=user %}
+            <span class="username">{{ user.username }}</span>
+            <span class="caret">▾</span>
+          </summary>
+          <div class="dropdown-menu">
+            <a href="{% url 'profile' user.username %}">Профиль</a>
+            <a href="{% url 'favorites:list' %}">♥ Favorites</a>
+            <a href="{% url 'offers:my_offers' %}">My Offers</a>
+            <a href="{% url 'lessons:my_requests' %}">My Requests</a>
+            {% if user.is_moderator %}
+              <a href="{% url 'offers:moderation' %}">Модерация</a>
+              <a href="{% url 'users_manage' %}">Пользователи</a>
+            {% endif %}
+            {% if user.is_super %}
+              <a href="{% url 'offers:category_manage' %}">Категории</a>
+            {% endif %}
+            <div class="dropdown-divider"></div>
+            <form method="post" action="{% url 'logout' %}" style="margin:0">
+              {% csrf_token %}
+              <button class="dropdown-item">Выйти</button>
+            </form>
+          </div>
+        </details>
+      {% else %}
+        <a class="btn btn-ghost btn-sm" href="{% url 'login' %}">Войти</a>
+        <a class="btn btn-primary btn-sm" href="{% url 'register' %}">Регистрация</a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="container">SkillSwap · учитесь и обучайте</div>
+</footer>
+
+<script>
+document.addEventListener("click", function (event) {
+  document.querySelectorAll("details.dropdown[open]").forEach(function (el) {
+    if (!el.contains(event.target)) {
+      el.removeAttribute("open");
+    }
+  });
+});
+</script>
+
+</body>
+</html>

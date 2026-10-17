@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Mentors · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h2>Mentors</h2>
+    <p class="text-muted" style="margin:0">Пользователи, у которых есть опубликованные предложения</p>
+  </div>
+</div>
+
+{% if mentors %}
+  <div class="mentor-grid">
+    {% for m in mentors %}
+      <a class="card mentor-card" href="{% url 'profile' m.username %}">
+        <div class="mentor-top">
+          {% include "accounts/_avatar.html" with person=m %}
+          <div>
+            <h3 style="margin:0">{{ m.username }}</h3>
+            {% if m.avg_rating %}
+              <span class="stars">★ {{ m.avg_rating|floatformat:1 }}</span>
+              <span class="text-muted" style="font-size:.85rem">({{ m.ratings_count }})</span>
+            {% else %}
+              <span class="text-muted" style="font-size:.85rem">Пока без оценок</span>
+            {% endif %}
+          </div>
+        </div>
+        <p class="bio-text">{% if m.bio %}{{ m.bio|truncatechars:90 }}{% else %}Без описания{% endif %}</p>
+        <div class="mentor-stats">
+          <span>Предложений: <strong>{{ m.published_count }}</strong></span>
+          <span>Занятий: <strong>{{ m.completed_count }}</strong></span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty">
+    <h3>Менторов пока нет</h3>
+    <p>Они появятся, как только будут опубликованы первые предложения.</p>
+  </div>
+{% endif %}
+{% endblock %}

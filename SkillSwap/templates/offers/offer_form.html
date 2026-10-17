@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <h2>{{ page_title }}</h2>
+  <p class="text-muted">
+    {% if moderator_edit %}
+      Вы редактируете чужое предложение как модератор: статус не изменится.
+    {% else %}
+      После отправки предложение проверит админ, и только потом оно появится в Explore.
+    {% endif %}
+  </p>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="form-actions">
+      {% if moderator_edit %}
+        <button class="btn btn-primary" name="action" value="save">Сохранить</button>
+      {% else %}
+        <button class="btn btn-primary" name="action" value="submit">Отправить на модерацию</button>
+        <button class="btn btn-ghost" name="action" value="draft">Сохранить как черновик</button>
+      {% endif %}
+      <a class="btn btn-outline" href="{% url 'offers:my_offers' %}">Отмена</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

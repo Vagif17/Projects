@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · SkillSwap{% endblock %}
+
+{% block content %}
+{% if show_hero and not user.is_authenticated %}
+<section class="hero">
+  <span class="eyebrow">Платформа обмена навыками</span>
+  <h1>Учитесь у тех, кто <span class="text-gradient">уже умеет</span></h1>
+  <p class="lead">
+    Находите наставников по программированию, дизайну, языкам и музыке,
+    или предлагайте собственные занятия.
+  </p>
+  <div class="hero-actions">
+    <a class="btn btn-primary btn-lg" href="{% url 'register' %}">Начать бесплатно</a>
+    <a class="btn btn-outline btn-lg" href="{% url 'login' %}">Войти</a>
+  </div>
+</section>
+{% endif %}
+
+<div class="page-head">
+  <div>
+    {% if back_to_categories %}
+      <a href="{% url 'offers:categories' %}" class="text-muted" style="font-size:.9rem">← Все категории</a>
+    {% endif %}
+    <h2>{{ title }}</h2>
+    <p class="text-muted" style="margin:0">{{ subtitle }}</p>
+  </div>
+</div>
+
+{% include "offers/_filters.html" %}
+
+{% if offers %}
+  <p class="text-muted result-count">Найдено: {{ offers|length }}</p>
+  <div class="offer-grid">
+    {% for offer in offers %}
+      {% include "offers/_offer_card.html" %}
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty">
+    <h3>Ничего не найдено</h3>
+    <p>Попробуйте изменить запрос или сбросить фильтры.</p>
+    <a class="btn btn-ghost" href="{{ request.path }}">Сбросить фильтры</a>
+  </div>
+{% endif %}
+{% endblock %}

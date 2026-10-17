@@ -1,0 +1,51 @@
+<article class="card offer-card">
+  {% if user.is_authenticated and offer.status == 'Published' and offer.author_id != user.id %}
+    <form method="post" action="{% url 'favorites:toggle' offer.pk %}" class="fav-form">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+      <button class="fav-btn{% if offer.pk in favorite_ids %} active{% endif %}" title="Избранное">
+        {% if offer.pk in favorite_ids %}♥{% else %}♡{% endif %}
+      </button>
+    </form>
+  {% endif %}
+
+  <a href="{% url 'offers:detail' offer.pk %}">
+    {% if offer.image %}
+      <img class="offer-image" src="{{ offer.image.url }}" alt="{{ offer.title }}" loading="lazy">
+    {% else %}
+      <div class="offer-image-placeholder">🎯</div>
+    {% endif %}
+  </a>
+  <div class="offer-body">
+    <div class="offer-meta">
+      <span class="badge badge-{{ offer.level|lower }}">{{ offer.level }}</span>
+      <span class="badge badge-{{ offer.format|lower }}">{{ offer.format }}</span>
+      {% if show_status %}
+        <span class="badge badge-{{ offer.status|lower }}">{{ offer.status }}</span>
+      {% endif %}
+    </div>
+
+    <h3><a href="{% url 'offers:detail' offer.pk %}">{{ offer.title }}</a></h3>
+
+    <div class="offer-rating">
+      {% if offer.avg_rating %}
+        <span class="stars">★ {{ offer.avg_rating|floatformat:1 }}</span>
+        <span class="text-muted">({{ offer.ratings_count }})</span>
+      {% else %}
+        <span class="text-muted">Пока без оценок</span>
+      {% endif %}
+    </div>
+
+    <div class="offer-footer">
+      <span>{{ offer.category.name }} · <a href="{% url 'profile' offer.author.username %}">{{ offer.author.username }}</a></span>
+      <span>{{ offer.duration_minutes }} мин</span>
+    </div>
+
+    {% if show_actions %}
+      <div class="card-actions">
+        <a class="btn btn-ghost btn-sm" href="{% url 'offers:update' offer.pk %}">Изменить</a>
+        <a class="btn btn-danger btn-sm" href="{% url 'offers:delete' offer.pk %}">Удалить</a>
+      </div>
+    {% endif %}
+  </div>
+</article>

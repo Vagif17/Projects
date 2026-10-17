@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}{{ person.username }} · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="card profile-card">
+  {% include "accounts/_avatar.html" with person=person large=True %}
+
+  <div class="profile-info">
+    <h1>
+      {{ person.username }}
+      {% if person.role != 'user' %}
+        <span class="badge badge-{{ person.role }}">{{ person.get_role_display }}</span>
+      {% endif %}
+      {% if person.is_banned %}
+        <span class="badge badge-banned">Заблокирован</span>
+      {% endif %}
+    </h1>
+    {% if person.bio %}
+      <p class="bio-text">{{ person.bio|linebreaksbr }}</p>
+    {% else %}
+      <p class="bio-text">Пользователь пока ничего о себе не рассказал.</p>
+    {% endif %}
+  </div>
+
+  <div class="form-actions" style="margin:0">
+    {% if user.pk == person.pk %}
+      <a class="btn btn-ghost" href="{% url 'profile_edit' %}">Редактировать профиль</a>
+    {% endif %}
+
+    {% if can_ban %}
+      <form method="post" action="{% url 'user_ban' person.username %}" class="inline-form">
+        {% csrf_token %}
+        {% if person.is_banned %}
+          <button class="btn btn-ghost">Разблокировать</button>
+        {% else %}
+          <button class="btn btn-danger">Заблокировать</button>
+        {% endif %}
+      </form>
+    {% endif %}
+
+    {% if can_set_role %}
+      <form method="post" action="{% url 'user_role' person.username %}" class="inline-form">
+        {% csrf_token %}
+        {% if person.role == 'admin' %}
+          <input type="hidden" name="role" value="user">
+          <button class="btn btn-outline">Снять роль админа</button>
+        {% else %}
+          <input type="hidden" name="role" value="admin">
+          <button class="btn btn-outline">Назначить админом</button>
+        {% endif %}
+      </form>
+    {% endif %}
+  </div>
+</div>
+
+<div class="stat-grid">
+  <div class="card stat-box">
+    <div class="num stars">{% if avg_rating %}★ {{ avg_rating|floatformat:1 }}{% else %}—{% endif %}</div>
+    <div class="label">Средний рейтинг{% if ratings_count %} · оценок: {{ ratings_count }}{% endif %}</div>
+  </div>
+  <div class="card stat-box">
+    <div class="num">{{ published_count }}</div>
+    <div class="label">Опубликованных предложений</div>
+  </div>
+  <div class="card stat-box">
+    <div class="num">{{ completed_count }}</div>
+    <div class="label">Завершённых занятий</div>
+  </div>
+</div>
+
+<h3 class="section-title">Предложения</h3>
+{% if offers %}
+  <div class="offer-grid">
+    {% for offer in offers %}
+      {% include "offers/_offer_card.html" %}
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty">У пользователя пока нет опубликованных предложений.</div>
+{% endif %}
+
+<h3 class="section-title">Отзывы о пользователе</h3>
+{% for r in reviews %}
+  <div class="review">
+    <div class="review-head">
+      <div class="author-box">
+        {% include "accounts/_avatar.html" with person=r.lesson.student %}
+        <div>
+          <strong><a href="{% url 'profile' r.lesson.student.username %}">{{ r.lesson.student.username }}</a></strong>
+          <div class="text-muted" style="font-size:.8rem">
+            {{ r.created_at|date:"d.m.Y" }} · <a href="{% url 'offers:detail' r.lesson.offer_id %}">{{ r.lesson.offer.title }}</a>
+          </div>
+        </div>
+      </div>
+      <span class="stars">★ {{ r.score }}/5</span>
+    </div>
+    <p style="margin:.6rem 0 0">{{ r.review|linebreaksbr }}</p>
+  </div>
+{% empty %}
+  <div class="empty">Отзывов пока нет.</div>
+{% endfor %}
+{% endblock %}

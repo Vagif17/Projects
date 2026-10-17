@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Управление категориями · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h2>Управление категориями</h2>
+    <p class="text-muted" style="margin:0">Создание, изменение и удаление категорий</p>
+  </div>
+  <a class="btn btn-primary" href="{% url 'offers:category_create' %}">+ Новая категория</a>
+</div>
+
+{% for category in categories %}
+  <div class="card mod-row">
+    <div>
+      <h3 style="margin:0 0 .2rem">{{ category.name }}</h3>
+      <span class="text-muted" style="font-size:.9rem">Предложений: {{ category.offers_count }}</span>
+    </div>
+    <div class="form-actions" style="margin:0">
+      <a class="btn btn-ghost btn-sm" href="{% url 'offers:category_update' category.pk %}">Изменить</a>
+      <a class="btn btn-danger btn-sm" href="{% url 'offers:category_delete' category.pk %}">Удалить</a>
+    </div>
+  </div>
+{% empty %}
+  <div class="empty">Категорий пока нет.</div>
+{% endfor %}
+{% endblock %}

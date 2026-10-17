@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Удаление категории · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2>Удалить категорию?</h2>
+    <p class="sub">«{{ category.name }}»</p>
+
+    {% if category.offers_count %}
+      <div class="alert alert-warning">
+        В этой категории предложений: {{ category.offers_count }}. Пока они не перенесены в другую категорию или не удалены, категорию удалить не получится.
+      </div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-actions" style="margin-top:0">
+        <button class="btn btn-danger">Да, удалить</button>
+        <a class="btn btn-outline" href="{% url 'offers:category_manage' %}">Отмена</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

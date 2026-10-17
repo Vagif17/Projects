@@ -1,0 +1,55 @@
+<form method="get" class="filters">
+  <div class="field grow">
+    <label for="f-q">Поиск</label>
+    <input id="f-q" type="search" name="q" value="{{ filters.q }}" placeholder="Название предложения">
+  </div>
+
+  {% if not hide_category %}
+  <div class="field">
+    <label for="f-category">Категория</label>
+    <select id="f-category" name="category">
+      <option value="">Все</option>
+      {% for c in categories %}
+        <option value="{{ c.pk }}" {% if filters.category == c.pk|stringformat:"s" %}selected{% endif %}>{{ c.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+
+  <div class="field">
+    <label for="f-level">Уровень</label>
+    <select id="f-level" name="level">
+      <option value="">Любой</option>
+      {% for l in levels %}
+        <option value="{{ l }}" {% if filters.level == l %}selected{% endif %}>{{ l }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="f-format">Формат</label>
+    <select id="f-format" name="format">
+      <option value="">Любой</option>
+      {% for f in formats %}
+        <option value="{{ f }}" {% if filters.format == f %}selected{% endif %}>{{ f }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  {% if not hide_rating %}
+  <div class="field">
+    <label for="f-rating">Рейтинг</label>
+    <select id="f-rating" name="min_rating">
+      <option value="">Любой</option>
+      {% for r in rating_options %}
+        <option value="{{ r }}" {% if filters.min_rating == r %}selected{% endif %}>{{ r }}+ ★</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+
+  <div class="filter-actions">
+    <button class="btn btn-primary">Найти</button>
+    <a class="btn btn-ghost" href="{{ request.path }}">Сбросить</a>
+  </div>
+</form>

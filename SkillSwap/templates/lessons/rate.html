@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Оценка занятия · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card" style="width:min(560px,100%)">
+    <h2>{% if editing %}Изменить отзыв{% else %}Оцените занятие{% endif %}</h2>
+    <p class="sub">«{{ lesson.offer.title }}»</p>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-actions" style="margin-top:0">
+        <button class="btn btn-primary">Сохранить</button>
+        <a class="btn btn-outline" href="{% url 'lessons:my_requests' %}">Отмена</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

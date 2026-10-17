@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Модерация · SkillSwap{% endblock %}
+
+{% block content %}
+<div class="page-head">
+  <div>
+    <h2>Модерация</h2>
+    <p class="text-muted" style="margin:0">Предложения, ожидающие подтверждения</p>
+  </div>
+</div>
+
+{% for offer in offers %}
+  <div class="card mod-row">
+    <div>
+      <h3 style="margin-bottom:.3rem"><a href="{% url 'offers:detail' offer.pk %}">{{ offer.title }}</a></h3>
+      <div class="text-muted" style="font-size:.9rem">
+        {{ offer.author.username }} · {{ offer.category.name }} · {{ offer.level }} · {{ offer.format }}
+        · {{ offer.created_at|date:"d.m.Y H:i" }}
+      </div>
+    </div>
+    <div class="form-actions" style="margin:0">
+      <form method="post" action="{% url 'offers:approve' offer.pk %}" class="inline-form">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-sm">Опубликовать</button>
+      </form>
+      <form method="post" action="{% url 'offers:reject' offer.pk %}" class="inline-form">
+        {% csrf_token %}
+        <button class="btn btn-danger btn-sm">Отклонить</button>
+      </form>
+    </div>
+  </div>
+{% empty %}
+  <div class="empty">
+    <h3>Очередь пуста 🎉</h3>
+    <p>Новых предложений на модерации нет.</p>
+  </div>
+{% endfor %}
+{% endblock %}
